@@ -7,6 +7,7 @@ The basic premise is to have a program that scans a network for all responding h
 From this it should be possible to either add/remove a device from the network for the data to be unrecoverable. 
 
 This will make it possible to securely encrypt documents/data based off of attatched network devices where there is at least one 'keystone' device that when connected/disconected allows the encryption to be reversed.
+
 [![CodeQL](https://github.com/sbartlett97/network-based-encrypter/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/sbartlett97/network-based-encrypter/actions/workflows/codeql-analysis.yml)
 ## Note
 
