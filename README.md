@@ -10,4 +10,4 @@ This will make it possible to securely encrypt documents/data based off of attat
 
 ## Note
 
-This has no real application outside of theory or small home networks unless you are happy with the data being unrecovereable, as devices get swapped and upgraded all the time so the physical adddresses attatched to larger networks can change fairly often. It is possible to store the hash used to amke it viable, but at this point the security of the program is reduced as there are ways the hash can be stolen.
+This project is only really viable for encrypting backups or data that is rarely accessed and has no real application outside of theory or small home networks unless you are happy with the data being unrecovereable, as devices get swapped and upgraded all the time so the physical adddresses attatched to larger networks can change fairly often. It is possible to store the hash used to amke it viable, but at this point the security of the program is reduced as there are ways the hash can be stolen.
