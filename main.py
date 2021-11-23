@@ -2,6 +2,7 @@ import scapy.all as scapy
 import argparse
 import hashlib
 import socket
+import base64
 from cryptography.fernet import Fernet
 test = True
 def get_args():
@@ -52,14 +53,14 @@ def determine_ip_range():
 
 def perform_decryption(data, mac_string):
   auth_hash = hashlib.pbkdf2_hmac('sha256', bytes(mac_string, 'utf-8'), b'39A04ADFD3', 310000)
-  f = Fernet(auth_hash)
-  token = f.encrypt(data)
+  f = Fernet(base64.b64encode(auth_hash))
+  token = f.decrypt(data)
   return token
 
 def perform_encryption(data, mac_string):
   auth_hash = hashlib.pbkdf2_hmac('sha256', bytes(mac_string, 'utf-8'), b'39A04ADFD3', 310000)
-  f = Fernet(auth_hash)
-  token = f.decrypt(data)
+  f = Fernet(base64.b64encode(auth_hash))
+  token = f.encrypt(bytes(data, 'ascii'))
   return token
 
 #testing with default value
@@ -73,8 +74,8 @@ if __name__=='__main__':
     mac_string = '62:0e:ae:f2:50:21:de:81:57:cc:59:6d:76:c3:0b:16:4b:f0:'
     data = 'Hello, World!'
     garbled = perform_encryption(data, mac_string)
-    print(garbled)
-    print(perform_decryption(garbled, mac_string))
+    print(str(garbled))
+    print(str(perform_decryption(garbled, mac_string)))
   
   if encrypt:
     data = (file, text)[text]
