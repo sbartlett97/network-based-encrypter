@@ -65,21 +65,11 @@ def perform_encryption(data, mac_string):
 
 #testing with default value
 if __name__=='__main__':
-  text = 'Hello, World!'
-  file = ''
-  if not test:
-    ip = determine_ip_range()
-    mac_string = scan(ip)
-  else:
-    mac_string = '62:0e:ae:f2:50:21:de:81:57:cc:59:6d:76:c3:0b:16:4b:f0:'
-    data = 'Hello, World!'
-    garbled = perform_encryption(data, mac_string)
-    print(str(garbled))
-    print(str(perform_decryption(garbled, mac_string)))
+
+  mac_string = '62:0e:ae:f2:50:21:de:81:57:cc:59:6d:76:c3:0b:16:4b:f0:'
+  data = 'Hello, World!'
+  garbled = perform_encryption(data, mac_string)
+  print(str(garbled))
+  print(str(perform_decryption(garbled, mac_string)))
   
-  if encrypt:
-    data = (file, text)[text]
-    print(perform_encryption(data, mac_string))
-  else:
-    data = (file, text)[text]
-    print(perform_decryption(data, mac_string))
+  
