@@ -3,7 +3,7 @@ import argparse
 import hashlib
 import socket
 from cryptography.fernet import Fernet
-
+test = True
 def get_args():
   parser = argparse.ArgumentParser()
   parser.add_argument('-f', '--file', dest='file', help='File to be encrypted/decrypted')
@@ -51,20 +51,34 @@ def determine_ip_range():
   return('{}.{}.{}.1/254'.format(ip[0], ip[1], ip[2]))
 
 def perform_decryption(data, mac_string):
-  return
+  auth_hash = hashlib.pbkdf2_hmac('sha256', bytes(mac_string, 'utf-8'), b'39A04ADFD3', 310000)
+  f = Fernet(auth_hash)
+  token = f.encrypt(data)
+  return token
 
 def perform_encryption(data, mac_string):
-  return
+  auth_hash = hashlib.pbkdf2_hmac('sha256', bytes(mac_string, 'utf-8'), b'39A04ADFD3', 310000)
+  f = Fernet(auth_hash)
+  token = f.decrypt(data)
+  return token
 
 #testing with default value
 if __name__=='__main__':
   text = 'Hello, World!'
-  ip = determine_ip_range()
-  mac_string = scan(ip)
-
+  file = ''
+  if not test:
+    ip = determine_ip_range()
+    mac_string = scan(ip)
+  else:
+    mac_string = '62:0e:ae:f2:50:21:de:81:57:cc:59:6d:76:c3:0b:16:4b:f0:'
+    data = 'Hello, World!'
+    garbled = perform_encryption(data, mac_string)
+    print(garbled)
+    print(perform_decryption(garbled, mac_string))
+  
   if encrypt:
     data = (file, text)[text]
-    perform_encryption(data, mac_string)
+    print(perform_encryption(data, mac_string))
   else:
     data = (file, text)[text]
-    perform_decryption(data, mac_string)
+    print(perform_decryption(data, mac_string))
